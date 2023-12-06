@@ -36,10 +36,16 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"id\": 45,\n  \"category\": {\n    \"id\": 1,\n    \"name\": \"dog\"\n  },\n  \"name\": \"Ginger\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"available\"\n}",
+							"raw": "{\n  \"id\": 5,\n  \"category\": {\n    \"id\": 1,\n    \"name\": \"dog\"\n  },\n  \"name\": \"Ginger\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"available\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -53,6 +59,13 @@
 							],
 							"path": [
 								"pet"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -64,13 +77,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/pet/%",
+							"raw": "{{baseUrl}}/pet/{{petId}}",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"pet",
-								"%"
+								"{{petId}}"
 							]
 						}
 					},
@@ -83,7 +96,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"id\": 3000,\n  \"category\": {\n    \"id\": 1,\n    \"name\": \"dog\"\n  },\n  \"name\": \"Ginger\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 3,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"available\"\n}",
+							"raw": "\n{\n  \"id\": 5,\n  \"category\": {\n    \"id\": 0,\n    \"name\": \"string\"\n  },\n  \"name\": \"doggie\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"unvailable\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -97,6 +110,51 @@
 							],
 							"path": [
 								"pet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Updates a pet",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "newname",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "unavailable",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/pet/{{petId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"pet",
+								"{{petId}}"
 							]
 						}
 					},
@@ -154,7 +212,28 @@
 					"name": "Uploads an Image",
 					"request": {
 						"method": "POST",
-						"header": []
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/Users/jula/Desktop/yorkie.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/pet/{{petId}}/uploadImage",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"pet",
+								"{{petId}}",
+								"uploadImage"
+							]
+						}
 					},
 					"response": []
 				}
@@ -337,7 +416,14 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "username",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": ""
@@ -402,17 +488,38 @@
 				},
 				{
 					"name": "Log user into the system",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/user/login",
+							"raw": "{{baseUrl}}/user/login?username=%%%%&password=33455",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"user",
 								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "%%%%"
+								},
+								{
+									"key": "password",
+									"value": "33455"
+								}
 							]
 						}
 					},
@@ -438,6 +545,17 @@
 				},
 				{
 					"name": "Creates an user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -502,23 +620,17 @@
 			"disabled": true
 		},
 		{
-			"key": "orderId",
-			"value": "",
-			"disabled": true
-		},
-		{
-			"key": "username",
-			"value": "",
-			"type": "string",
-			"disabled": true
-		},
-		{
 			"key": "id",
 			"value": "",
 			"disabled": true
 		},
 		{
 			"key": "orderId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "username",
 			"value": "",
 			"type": "string"
 		}
