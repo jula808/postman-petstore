@@ -28,7 +28,9 @@
 									"    pm.expect(response).to.haveOwnProperty('id');\r",
 									"    pm.expect(response.id).to.be.a('number');\r",
 									"    pm.collectionVariables.set('petId', response.id);\r",
-									"});"
+									"});\r",
+									"\r",
+									"postman.setNextRequest(\"Find by Id\");"
 								],
 								"type": "text/javascript"
 							}
@@ -73,6 +75,21 @@
 				},
 				{
 					"name": "Find by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"postman.setNextRequest(\"Updates a pet\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -91,6 +108,21 @@
 				},
 				{
 					"name": "Updates a pet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"postman.setNextRequest(\"Updates a pet form data\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -116,7 +148,22 @@
 					"response": []
 				},
 				{
-					"name": "Updates a pet",
+					"name": "Updates a pet form data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"postman.setNextRequest(\"Uploads an Image\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -186,6 +233,21 @@
 				},
 				{
 					"name": "Deletes a pet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"postman.setNextRequest(\"Place an Order for a pet\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -224,7 +286,9 @@
 									" pm.expect(jsonData.code).to.eql(200);",
 									" pm.expect(jsonData.message).includes(\"/yorkie.jpg,\")",
 									"});",
-									""
+									"",
+									"",
+									"postman.setNextRequest(\"Find by Status\");"
 								],
 								"type": "text/javascript"
 							}
@@ -282,6 +346,7 @@
 									"    pm.collectionVariables.set('orderId', response.id);\r",
 									"});\r",
 									"\r",
+									"postman.setNextRequest(\"Finds purchase by order Id\");\r",
 									""
 								],
 								"type": "text/javascript"
@@ -314,7 +379,22 @@
 					"response": []
 				},
 				{
-					"name": "Finds purchase. by order Id",
+					"name": "Finds purchase by order Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"postman.setNextRequest(\"Returns pet inventory by status\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"protocolProfileBehavior": {
 						"followRedirects": false
 					},
@@ -337,6 +417,21 @@
 				},
 				{
 					"name": "Deletes purchase by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"postman.setNextRequest(\"Create a List of Users\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -356,6 +451,21 @@
 				},
 				{
 					"name": "Returns pet inventory by status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"postman.setNextRequest(\"Deletes purchase by Id\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -378,7 +488,7 @@
 			"name": "User",
 			"item": [
 				{
-					"name": "Create with a List of Users",
+					"name": "Create a List of Users",
 					"event": [
 						{
 							"listen": "test",
@@ -387,7 +497,8 @@
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
-									""
+									"\r",
+									"postman.setNextRequest(\"Log user into the system\");"
 								],
 								"type": "text/javascript"
 							}
@@ -425,7 +536,12 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"postman.setNextRequest(\"Updates user\");"
 								],
 								"type": "text/javascript"
 							}
@@ -463,6 +579,21 @@
 				},
 				{
 					"name": "Updates user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"postman.setNextRequest(\"Creates an user\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "PUT",
 						"header": [],
@@ -490,6 +621,21 @@
 				},
 				{
 					"name": "Deletes user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"postman.setNextRequest(\"Null\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -513,7 +659,11 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"postman.setNextRequest(\"Get user by name\");"
 								],
 								"type": "text/javascript"
 							}
@@ -549,6 +699,21 @@
 				},
 				{
 					"name": "Log out current logged in user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"postman.setNextRequest(\"Deletes user\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -572,7 +737,11 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"postman.setNextRequest(\"Log out current logged in user\");"
 								],
 								"type": "text/javascript"
 							}
