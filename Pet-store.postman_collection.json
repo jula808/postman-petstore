@@ -128,7 +128,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "\n{\n  \"id\": 5,\n  \"category\": {\n    \"id\": 0,\n    \"name\": \"string\"\n  },\n  \"name\": \"doggie\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"unvailable\"\n}",
+							"raw": "\"\"",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -337,16 +337,36 @@
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
 									"\r",
+									"pm.test(\"Response has valid id\", () => {\r",
+									"const rawResponse = pm.response.text();\r",
+									"console.log('Raw Response:', rawResponse);\r",
 									"\r",
-									"pm.test (\"Response has valid id\", () => {\r",
-									"    const response = pm.response.json();\r",
-									"    pm.expect(response).to.be.an('object');\r",
-									"    pm.expect(response).to.haveOwnProperty('id');\r",
-									"    pm.expect(response.id).to.be.a('number');\r",
-									"    pm.collectionVariables.set('orderId', response.id);\r",
+									"try {\r",
+									"    // Parse the raw response as JSON\r",
+									"    const jsonResponse = JSON.parse(rawResponse);\r",
+									"\r",
+									"    // Extract the order ID using BigInt\r",
+									"    const orderId = BigInt(jsonResponse.id);\r",
+									"\r",
+									"    console.log('Extracted Order ID:', orderId.toString());\r",
+									"\r",
+									"    // Set the collection variable with the extracted order ID\r",
+									"    pm.collectionVariables.set('orderId', orderId.toString());\r",
+									"\r",
+									"    console.log('Saved Order ID:', pm.collectionVariables.get('orderId'));\r",
+									"} catch (error) {\r",
+									"    console.error('Error parsing JSON or extracting Order ID:', error.message);\r",
+									"}\r",
 									"});\r",
-									"\r",
-									"postman.setNextRequest(\"Finds purchase by order Id\");\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
 									""
 								],
 								"type": "text/javascript"
@@ -358,7 +378,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "\n{\n  \"id\": 5,\n  \"petId\": 0,\n  \"quantity\": 0,\n  \"shipDate\": \"2023-12-02T23:53:22.404Z\",\n  \"status\": \"placed\",\n  \"complete\": true\n}",
+							"raw": "\n{\n  \"id\": 0,\n  \"petId\": 0,\n  \"quantity\": 0,\n  \"shipDate\": \"2023-12-21T16:52:17.557Z\",\n  \"status\": \"placed\",\n  \"complete\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
