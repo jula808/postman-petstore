@@ -119,7 +119,8 @@
 									"",
 									"postman.setNextRequest(\"Updates a pet form data\");"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -128,7 +129,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "\"\"",
+							"raw": "{\r\n  \"id\": 5,\r\n  \"category\": {\r\n    \"id\": 1,\r\n    \"name\": \"dog\"\r\n  },\r\n  \"name\": \"Ginger\",\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -160,7 +161,8 @@
 									"",
 									"postman.setNextRequest(\"Uploads an Image\");"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -169,12 +171,13 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "",
-								"type": "text"
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
 							},
 							{
 								"key": "",
-								"value": "application/json",
+								"value": "",
 								"type": "text",
 								"disabled": true
 							}
@@ -290,7 +293,8 @@
 									"",
 									"postman.setNextRequest(\"Find by Status\");"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -303,7 +307,7 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/Users/jula/Desktop/yorkie.jpg"
+									"src": "_9tr4R9kU/yorkie.jpg"
 								}
 							]
 						},
@@ -422,14 +426,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/store/order/{{orderId}}",
+							"raw": "{{baseUrl}}/store/order/7",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"store",
 								"order",
-								"{{orderId}}"
+								"7"
 							]
 						}
 					},
