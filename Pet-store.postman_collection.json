@@ -280,18 +280,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"Upload succesful\", function() {",
-									" var jsonData = pm.response.json();",
-									" pm.expect(jsonData.code).to.eql(200);",
-									" pm.expect(jsonData.message).includes(\"/yorkie.jpg,\")",
-									"});",
-									"",
-									"",
-									"postman.setNextRequest(\"Find by Status\");"
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -300,14 +289,26 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
 								{
 									"key": "file",
 									"type": "file",
-									"src": "_9tr4R9kU/yorkie.jpg"
+									"src": "postman-cloud:///1eeed037-7437-4b20-aced-605a2242ea53"
+								},
+								{
+									"key": "additionalMetadata",
+									"value": "",
+									"type": "text",
+									"disabled": true
 								}
 							]
 						},
@@ -342,29 +343,33 @@
 									"});\r",
 									"\r",
 									"pm.test(\"Response has valid id\", () => {\r",
-									"const rawResponse = pm.response.text();\r",
-									"console.log('Raw Response:', rawResponse);\r",
+									"    const rawResponse = pm.response.text();\r",
+									"    console.log('Raw Response:', rawResponse);\r",
 									"\r",
-									"try {\r",
-									"    // Parse the raw response as JSON\r",
-									"    const jsonResponse = JSON.parse(rawResponse);\r",
+									"    try {\r",
+									"        // Parse the raw response as JSON\r",
+									"        const jsonResponse = JSON.parse(rawResponse);\r",
+									"        console.log('Parsed JSON Response:', jsonResponse);\r",
 									"\r",
-									"    // Extract the order ID using BigInt\r",
-									"    const orderId = BigInt(jsonResponse.id);\r",
+									"        // Extract the raw ID from the response\r",
+									"        const rawId = jsonResponse.id;\r",
+									"        console.log('Raw ID from Response:', rawId);\r",
 									"\r",
-									"    console.log('Extracted Order ID:', orderId.toString());\r",
 									"\r",
-									"    // Set the collection variable with the extracted order ID\r",
-									"    pm.collectionVariables.set('orderId', orderId.toString());\r",
+									"        // Convert the BigInt to a string\r",
+									"        const orderIdString = rawId.toString();\r",
+									"        console.log('Extracted Order ID (String):', orderIdString);\r",
 									"\r",
-									"    console.log('Saved Order ID:', pm.collectionVariables.get('orderId'));\r",
-									"} catch (error) {\r",
-									"    console.error('Error parsing JSON or extracting Order ID:', error.message);\r",
-									"}\r",
-									"});\r",
-									""
+									"        // Set the collection variable with the extracted order ID\r",
+									"        pm.collectionVariables.set('orderId', orderIdString);\r",
+									"        console.log('Saved Order ID:', pm.collectionVariables.get('orderId'));\r",
+									"    } catch (error) {\r",
+									"        console.error('Error parsing JSON or extracting Order ID:', error.message);\r",
+									"    }\r",
+									"});"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						},
 						{
@@ -373,16 +378,20 @@
 								"exec": [
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "\n{\n  \"id\": 0,\n  \"petId\": 0,\n  \"quantity\": 0,\n  \"shipDate\": \"2023-12-21T16:52:17.557Z\",\n  \"status\": \"placed\",\n  \"complete\": true\n}",
+							"raw": "\n{\n  \"id\": 100,\n  \"petId\": 0,\n  \"quantity\": 0,\n  \"shipDate\": \"2023-12-21T16:52:17.557Z\",\n  \"status\": \"placed\",\n  \"complete\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -415,7 +424,8 @@
 									"",
 									"postman.setNextRequest(\"Returns pet inventory by status\");"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -424,40 +434,6 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/store/order/7",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"store",
-								"order",
-								"7"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Deletes purchase by Id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"postman.setNextRequest(\"Create a List of Users\");"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
 						"header": [],
 						"url": {
 							"raw": "{{baseUrl}}/store/order/{{orderId}}",
@@ -505,54 +481,46 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "User",
-			"item": [
+				},
 				{
-					"name": "Create a List of Users",
+					"name": "Deletes purchase by Id",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"postman.setNextRequest(\"Log user into the system\");"
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"postman.setNextRequest(\"Create a List of Users\");"
 								],
 								"type": "text/javascript"
 							}
 						}
 					],
 					"request": {
-						"method": "POST",
+						"method": "DELETE",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "[\n  {\n    \"id\": 1,\n    \"username\": \"anailuj\",\n    \"firstName\": \"jula\",\n    \"lastName\": \"loewen\",\n    \"email\": \"email@email.com\",\n    \"password\": \"string\",\n    \"phone\": \"string\",\n    \"userStatus\": 0\n  },\n\n  {\n    \"id\": 2,\n    \"username\": \"cole808\",\n    \"firstName\": \"cole\",\n    \"lastName\": \"loewen\",\n    \"email\": \"email@email.com\",\n    \"password\": \"string\",\n    \"phone\": \"string\",\n    \"userStatus\": 0\n  },\n\n  {\n    \"id\": 3,\n    \"username\": \"ging808\",\n    \"firstName\": \"ging\",\n    \"lastName\": \"loewen\",\n    \"email\": \"email@email.com\",\n    \"password\": \"string\",\n    \"phone\": \"string\",\n    \"userStatus\": 0\n  }\n]",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "{{baseUrl}}/user/createWithArray",
+							"raw": "{{baseUrl}}/store/order/{{orderId}}",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"user",
-								"createWithArray"
+								"store",
+								"order",
+								"{{orderId}}"
 							]
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
 				{
 					"name": "Ger user by name",
 					"event": [
@@ -796,8 +764,53 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Create a List of Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"postman.setNextRequest(\"Log user into the system\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n  {\n    \"id\": 1,\n    \"username\": \"anailuj\",\n    \"firstName\": \"jula\",\n    \"lastName\": \"loewen\",\n    \"email\": \"email@email.com\",\n    \"password\": \"string\",\n    \"phone\": \"string\",\n    \"userStatus\": 0\n  },\n\n  {\n    \"id\": 2,\n    \"username\": \"cole808\",\n    \"firstName\": \"cole\",\n    \"lastName\": \"loewen\",\n    \"email\": \"email@email.com\",\n    \"password\": \"string\",\n    \"phone\": \"string\",\n    \"userStatus\": 0\n  },\n\n  {\n    \"id\": 3,\n    \"username\": \"ging808\",\n    \"firstName\": \"ging\",\n    \"lastName\": \"loewen\",\n    \"email\": \"email@email.com\",\n    \"password\": \"string\",\n    \"phone\": \"string\",\n    \"userStatus\": 0\n  }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/user/createWithArray",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"user",
+						"createWithArray"
+					]
+				}
+			},
+			"response": []
 		}
 	],
+	"auth": {
+		"type": "inherit"
+	},
 	"event": [
 		{
 			"listen": "prerequest",
